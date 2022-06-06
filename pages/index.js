@@ -77,7 +77,7 @@ export default function Index() {
             </svg>
           ) : (
             <div className="checkmark__error">
-              <CloseIcon fontSize="large"/>
+              <CloseIcon fontSize="large" />
             </div>
           )}
 

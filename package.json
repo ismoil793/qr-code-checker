@@ -1,0 +1,69 @@
+{
+  "name": "trast-admin",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
+    "prepare": "husky install",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint . --ext js",
+    "format": "prettier --write .",
+    "test-all": "npm run check-format && npm run check-lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.4.0",
+    "@mui/x-data-grid": "^5.5.0",
+    "axios": "^0.25.0",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "html-to-draftjs": "^1.5.0",
+    "moment": "^2.29.2",
+    "next": "12.0.10",
+    "next-redux-wrapper": "^7.0.5",
+    "nextjs-progressbar": "^0.0.13",
+    "notyf": "^3.10.0",
+    "prop-types": "^15.8.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-draft-wysiwyg": "^1.14.7",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "universal-cookie": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/draft-js": "^0.11.9",
+    "@types/react-draft-wysiwyg": "^1.13.4",
+    "and": "^0.0.3",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "12.0.10",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "husky": "^7.0.0",
+    "install": "^0.13.0",
+    "lint-staged": "^12.3.3",
+    "prettier": "^2.6.2",
+    "sass": "^1.49.7"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "engines" : {
+    "npm" : "8.1.2",
+    "node" : "16.13.2"
+  }
+}

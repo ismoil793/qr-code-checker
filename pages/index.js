@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
+import {
+  CircularProgress,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Cookies from "universal-cookie";
 import { notifyError, notifySuccess } from "../components/NotifyButton";
 import keys from "../api/constants";
 
@@ -12,11 +20,14 @@ export default function Index() {
   const [messageState, setMessageState] = useState();
   const [successState, setSuccessState] = useState(undefined);
   const router = useRouter();
+  const cookies = new Cookies();
 
   useEffect(() => {
     const { qrcode } = router.query;
 
-    if (qrcode && qrcode.length) {
+    if (!cookies.get("access_token")?.length) {
+      router.push(`/login?qrcode=${qrcode || ""}`);
+    } else if (qrcode && qrcode.length) {
       axios
         .post(
           `${BASE_URL}/api/access/${qrcode}`,
@@ -55,6 +66,22 @@ export default function Index() {
   return (
     <div>
       <div>
+        <div className="user-info">
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                KAIS Kitchen
+              </Typography>
+              <Typography variant="h6" component="div">
+                user123&nbsp;
+              </Typography>
+              <AccountCircle />
+              <Button className="btn-logout" variant="contained" color="error">
+                Выйти
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </div>
         <div className="success-animation">
           {successState ? (
             <svg
@@ -81,7 +108,7 @@ export default function Index() {
             </div>
           )}
 
-          {successState && <h3>You have an access for KAIS Kitchen</h3>}
+          {successState && <h3>Успех! Доступ в "KAIS Kitchen" одобрен</h3>}
           <h3>{messageState}</h3>
         </div>
       </div>

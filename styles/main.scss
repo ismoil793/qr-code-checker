@@ -1,3 +1,73 @@
+// --------------------------------------------- Login
+.login-wrapper {
+  position: relative;
+  height: 100vh;
+  background: #34495e;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 350px;
+  padding: 40px 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(25, 25, 25, 0.7);
+  text-align: center;
+  border-radius: 10px;
+
+  h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+
+    &:focus {
+      width: 280px;
+      border-color: #2ecc71;
+    }
+  }
+
+  input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+
+    &:hover {
+      background: #2ecc71;
+    }
+  }
+}
+
+.btn-logout {
+  margin-left: 20px;
+}
+
 // -------------------------------- Loader
 .loader-wrap {
   display: flex;

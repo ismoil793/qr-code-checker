@@ -1,5 +1,5 @@
 import * as axios from "axios";
-// import Cookies from "universal-cookie";
+import Cookies from "universal-cookie";
 import keys from "./constants";
 import { notifyError, notifyWarn } from "../components/NotifyButton";
 
@@ -8,16 +8,17 @@ const httpClient = axios.create({
 });
 
 httpClient.interceptors.request.use(
-  (config) =>
-    // const cookie = new Cookies();
+  (config) => {
+    const customConfig = config;
+    const cookie = new Cookies();
 
-    // let token = cookie.get("access_token");
+    const token = cookie.get("access_token");
     // let device_token = cookie.get('device_token');
     // let device_type = cookie.get('device_type');
 
-    // if (token) {
-    //     config.headers.Authorization = `Bearer ${token}`;
-    // }
+    if (token) {
+      customConfig.headers.Authorization = `Bearer ${token}`;
+    }
     // if (device_token) {
     //     config.headers['Device-Token'] = device_token
     // }
@@ -25,7 +26,8 @@ httpClient.interceptors.request.use(
     //     config.headers['Device-Type'] = device_type
     // }
 
-    config,
+    return customConfig;
+  },
   (error) => Promise.reject(error)
 );
 
@@ -39,7 +41,7 @@ httpClient.interceptors.response.use(
   ({ response }) => {
     // eslint-disable-next-line no-unused-vars
     const { status, data, statusText } = response || { status: false };
-    // const cookies = new Cookies();
+    const cookies = new Cookies();
 
     if (!response) {
       notifyError("Ошибка соединения!");
@@ -47,8 +49,8 @@ httpClient.interceptors.response.use(
     }
 
     if (parseInt(status, 10) === 401 || parseInt(status, 10) === 403) {
-      // cookies.remove("access_token", { path: '/' });
-      // cookies.remove("refresh_token", { path: '/' });
+      cookies.remove("access_token", { path: "/" });
+      cookies.remove("refresh_token", { path: "/" });
       // cookies.remove("user_id", { path: '/' })
     }
 

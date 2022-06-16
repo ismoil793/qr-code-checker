@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-// import { useRouter } from "next/router";
-// import Cookies from 'universal-cookie';
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { httpPost } from "../api";
+import { notifyError, notifySuccess } from "../components/NotifyButton";
+import { setAccessToken } from "../components/Login/login.helpers";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    name: "",
-    password: "",
+    phone: "970000002",
+    password: "123456",
   });
-  // const router = useRouter()
-  // const cookies = new Cookies()
-  // const { qrcode } = router.query
+  const router = useRouter();
+  const { qrcode } = router.query;
 
   useEffect(() => {
     // cookies.set('access_token', 'test')
@@ -21,6 +22,20 @@ export default function LoginPage() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
+    httpPost({
+      url: `/api/login`,
+      data: formData,
+    }).then((response) => {
+      const { success, token, user } = response.data || {};
+      if (!success) {
+        notifyError("Неверные данные");
+      } else if (success) {
+        setAccessToken(token);
+        localStorage.setItem("kitchenUser", user?.username || "");
+        notifySuccess("Успешно авторизован!");
+        router.push(`/?qrcode=${qrcode || ""}`);
+      }
+    });
   };
 
   const handleInputChange = (e) => {
@@ -35,11 +50,11 @@ export default function LoginPage() {
       <form className="login-box" onSubmit={handleLoginForm}>
         <h1>Авторизация</h1>
         <input
-          type="text"
-          name="name"
-          value={formData.name}
+          type="number"
+          name="phone"
+          value={formData.phone}
           onChange={handleInputChange}
-          placeholder="Имя пользователя"
+          placeholder="Номер телефона"
           required
         />
         <input

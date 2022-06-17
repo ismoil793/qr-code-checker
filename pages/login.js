@@ -7,8 +7,8 @@ import { setAccessToken } from "../components/Login/login.helpers";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    phone: "970000002",
-    password: "123456",
+    phone: "",
+    password: "",
   });
   const router = useRouter();
   const { qrcode } = router.query;
@@ -32,8 +32,10 @@ export default function LoginPage() {
       } else if (success) {
         setAccessToken(token);
         localStorage.setItem("kitchenUser", user?.username || "");
-        notifySuccess("Успешно авторизован!");
-        router.push(`/?qrcode=${qrcode || ""}`);
+        notifySuccess("Успешно авторизован!", 1000);
+        setTimeout(() => {
+          router.push(`/?qrcode=${qrcode || ""}`);
+        }, 1000);
       }
     });
   };

@@ -1,6 +1,7 @@
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
+const TWO_HOURS = 1000 * 7200;
 
 export const removeAccessToken = () => {
   cookies.remove("access_token", { path: "/" });
@@ -12,6 +13,6 @@ export const setAccessToken = (token) => {
 
   cookies.set("access_token", token, {
     path: "/",
-    expires: oneDayPeriod,
+    expires: new Date(oneDayPeriod - TWO_HOURS),
   });
 };

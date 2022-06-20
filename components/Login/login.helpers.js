@@ -8,11 +8,11 @@ export const removeAccessToken = () => {
 };
 
 export const setAccessToken = (token) => {
-  const oneDayPeriod = new Date();
-  oneDayPeriod.setDate(oneDayPeriod.getDate() + 1);
+  const halfMonthPeriod = new Date();
+  halfMonthPeriod.setDate(halfMonthPeriod.getDate() + 15);
 
   cookies.set("access_token", token, {
     path: "/",
-    expires: new Date(oneDayPeriod - TWO_HOURS),
+    expires: new Date(halfMonthPeriod - TWO_HOURS),
   });
 };
